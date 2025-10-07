@@ -1,11 +1,11 @@
-// Toggle menu burger
+// burger menu
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.getElementById('nav-links');
 menuToggle.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 });
 
-// Custom smooth scroll animation
+// animasi smooth scroll
 function smoothScrollTo(targetY, duration = 1200) {
   const startY = window.scrollY;
   const diff = targetY - startY;
@@ -31,7 +31,7 @@ function scrollToSection(id){
   }
 }
 
-// Fade-in animation saat scroll
+// animasi fade-in (scroll)
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -43,7 +43,7 @@ document.querySelectorAll('section').forEach(sec => {
   if (!sec.classList.contains('hero')) observer.observe(sec);
 });
 
-// Form kirim ke WhatsApp
+// form whatsapp
 document.getElementById('contact-form').addEventListener('submit', function(e){
   e.preventDefault();
   const nama = document.getElementById('nama').value.trim();
@@ -55,7 +55,7 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
   window.open(url, '_blank');
 });
 
-    // Anti inspect & klik kanan
+// anti inspect & klik kanan
 document.addEventListener("contextmenu", e => e.preventDefault());
 document.onkeydown = function(e) {
   if(e.keyCode == 123) return false;
@@ -63,7 +63,7 @@ document.onkeydown = function(e) {
   if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
 };
 
-// Custom scroll animation (ease in-out)
+// animasi scroll (ease in-out)
 function smoothScrollTo(targetY, duration = 1000) {
   const startY = window.scrollY;
   const diff = targetY - startY;
@@ -88,13 +88,13 @@ function smoothScrollTo(targetY, duration = 1000) {
   requestAnimationFrame(animateScroll);
 }
 
-// Apply scroll animation when navbar link clicked
+// animasi scroll ketika navbar dipencet
 document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      smoothScrollTo(target.offsetTop, 1000); // 1000ms = 1.2s scroll duration
+      smoothScrollTo(target.offsetTop, 1000); // 1000ms = 1 detik durasi scroll
     }
   });
 });
