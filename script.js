@@ -55,46 +55,20 @@ document.getElementById('contact-form').addEventListener('submit', function(e){
   window.open(url, '_blank');
 });
 
-// anti inspect & klik kanan
-document.addEventListener("contextmenu", e => e.preventDefault());
-document.onkeydown = function(e) {
-  if(e.keyCode == 123) return false;
-  if(e.ctrlKey && e.shiftKey && ['I','J'].includes(String.fromCharCode(e.keyCode))) return false;
-  if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-};
+// tombol musik play/pause
+const music = document.getElementById("backsound");
+const musicBtn = document.getElementById("music-btn");
+let isPlaying = false;
 
-// animasi scroll (ease in-out)
-function smoothScrollTo(targetY, duration = 1000) {
-  const startY = window.scrollY;
-  const diff = targetY - startY;
-  const startTime = performance.now();
-
-  function easeInOutQuad(t) {
-    return t < 0.5
-      ? 2 * t * t
-      : -1 + (4 - 2 * t) * t;
-  }
-
-  function animateScroll(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = easeInOutQuad(progress);
-    window.scrollTo(0, startY + diff * eased);
-    if (elapsed < duration) {
-      requestAnimationFrame(animateScroll);
+if (musicBtn) {
+  musicBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      music.pause();
+      musicBtn.textContent = "🎵 Putar Musik";
+    } else {
+      music.play();
+      musicBtn.textContent = "⏸️ Hentikan Musik";
     }
-  }
-
-  requestAnimationFrame(animateScroll);
-}
-
-// animasi scroll ketika navbar dipencet
-document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      smoothScrollTo(target.offsetTop, 1000); // 1000ms = 1 detik durasi scroll
-    }
+    isPlaying = !isPlaying;
   });
-});
+}
