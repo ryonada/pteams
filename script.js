@@ -1,3 +1,4 @@
+// script.js
 // burger menu
 const menuToggle = document.getElementById('menu-toggle');
 const navLinks = document.getElementById('nav-links');
@@ -24,6 +25,11 @@ function smoothScrollTo(targetY, duration = 1200) {
 }
 
 function scrollToSection(id){
+  // Tutup menu burger jika terbuka (untuk mobile)
+  if (navLinks.classList.contains('active')) {
+    navLinks.classList.remove('active');
+  }
+  
   const target = document.getElementById(id);
   if (target){
     const targetY = target.offsetTop - 60;
@@ -72,3 +78,42 @@ if (musicBtn) {
     isPlaying = !isPlaying;
   });
 }
+
+// Prevent default behavior for nav links and use smooth scroll instead
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    const targetId = href.substring(1); // Remove the # character
+    scrollToSection(targetId);
+  });
+});
+
+// Toggle mode terang/gelap dengan tombol on/off
+const themeCheckbox = document.getElementById('theme-checkbox');
+
+// Cek preferensi tema pengguna
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const currentTheme = localStorage.getItem('theme');
+
+// Set tema awal - DEFAULT MODE GELAP
+if (currentTheme === 'light') {
+  document.documentElement.setAttribute('data-theme', 'light');
+  themeCheckbox.checked = true;
+} else {
+  // Default mode gelap
+  document.documentElement.setAttribute('data-theme', 'dark');
+  themeCheckbox.checked = false;
+  localStorage.setItem('theme', 'dark');
+}
+
+// Toggle tema
+themeCheckbox.addEventListener('change', function() {
+  if (this.checked) {
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+});
